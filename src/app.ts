@@ -5,7 +5,8 @@ const app = express()
 app.use(express.json());
 app.use(express.text());
 
-app.get('/', (req: Request, res: Response) => {
+app.get('/:userId/:subId', (req: Request, res: Response) => {
+  console.log(req.params)
   res.send('Hello world!')
 })
 
