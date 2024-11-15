@@ -8,8 +8,8 @@ const app = (0, express_1.default)();
 // parsers
 app.use(express_1.default.json());
 app.use(express_1.default.text());
-app.get('/:userId/:subId', (req, res) => {
-    console.log(req.params);
+app.get('/', (req, res) => {
+    console.log(req.query);
     res.send('Hello world!');
 });
 app.post('/', (req, res) => {
