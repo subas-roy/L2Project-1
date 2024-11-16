@@ -45,16 +45,17 @@ const logger = (req, res, next) => {
     console.log(req.url, req.method, req.hostname);
     next();
 };
-app.get('/', logger, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get('/', logger, (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         res.send(something);
     }
     catch (error) {
         console.log(error);
-        res.status(400).json({
-            success: false,
-            message: "faild to get data"
-        });
+        next(error);
+        // res.status(400).json({
+        //   success: false,
+        //   message: "faild to get data"
+        // })
     }
 }));
 app.post('/', logger, (req, res) => {
@@ -63,5 +64,14 @@ app.post('/', logger, (req, res) => {
     res.json({
         "message": "Successfully received data"
     });
+});
+// global error handler
+app.use((error, req, res, next) => {
+    if (error) {
+        res.status(400).json({
+            success: false,
+            message: "Something went wrong"
+        });
+    }
 });
 exports.default = app;
