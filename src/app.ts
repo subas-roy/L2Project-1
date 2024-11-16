@@ -60,6 +60,14 @@ app.post('/', logger, (req: Request, res: Response) => {
   })
 })
 
+// Custom Error / Not Found Route
+app.all('*', (req: Request, res: Response) => {
+  res.status(400).json({
+    success: false,
+    message: "Route is not found"
+  })
+})
+
 // global error handler
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   if (error) {
